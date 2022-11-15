@@ -6,8 +6,7 @@ GitHub: [StratusGrid/terraform-aws-lambda-pipeline](https://github.com/StratusGr
 module "aws_guard_duty" {
   source  = "StratusGrid/terraform-aws-guard-duty/aws"
   version = "1.0.0"
-  guardduty_subsequent_findings_publishing_frequency = "SIX_HOURS"
-  enable_sns = true
+  project_name = "projectname"
 }
 ```
 ## StratusGrid Standards we assume
