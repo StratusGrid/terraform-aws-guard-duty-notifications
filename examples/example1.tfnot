@@ -1,0 +1,6 @@
+module "aws_guard_duty" {
+  source  = "StratusGrid/terraform-aws-guard-duty/aws"
+  version = "1.0.0"
+  guardduty_subsequent_findings_publishing_frequency = "SIX_HOURS"
+  enable_sns = true
+}

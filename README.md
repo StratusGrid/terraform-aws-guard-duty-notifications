@@ -3,7 +3,12 @@
 GitHub: [StratusGrid/terraform-aws-lambda-pipeline](https://github.com/StratusGrid/terraform-aws-lambda-pipeline)
 ## Example
 ```hcl
-
+module "aws_guard_duty" {
+  source  = "StratusGrid/terraform-aws-guard-duty/aws"
+  version = "1.0.0"
+  guardduty_subsequent_findings_publishing_frequency = "SIX_HOURS"
+  enable_sns = true
+}
 ```
 ## StratusGrid Standards we assume
 - All resource names and name tags shall use `_` and not `-`s
