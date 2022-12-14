@@ -1,0 +1,4 @@
+module "aws_guard_duty" {
+  source  = "StratusGrid/terraform-aws-guard-duty/aws"
+  # version = "x.x.x" # StratusGrid recommends pinning the module version to the latest available 
+}
