@@ -3,36 +3,48 @@ resource "aws_sns_topic" "guardduty_findings_info" {
   count             = var.enable_sns ? 1 : 0
   kms_master_key_id = aws_kms_key.this[0].key_id
   name              = "guardduty-findings-info"
+
+  tags = merge(local.common_tags)
 }
 
 resource "aws_sns_topic" "guardduty_findings_warning" {
   count             = var.enable_sns ? 1 : 0
   kms_master_key_id = aws_kms_key.this[0].key_id
   name              = "guardduty-findings-warning"
+
+  tags = merge(local.common_tags)
 }
 
 resource "aws_sns_topic" "guardduty_findings_critical" {
   count             = var.enable_sns ? 1 : 0
   kms_master_key_id = aws_kms_key.this[0].key_id
   name              = "guardduty-findings-critical"
+
+  tags = merge(local.common_tags)
 }
 
 resource "aws_cloudwatch_event_rule" "info" {
   count         = var.enable_sns ? 1 : 0
   name          = "guardduty-finding-info-events"
   event_pattern = file("${path.module}/event-pattern-info.json")
+
+  tags = merge(local.common_tags)
 }
 
 resource "aws_cloudwatch_event_rule" "warning" {
   count         = var.enable_sns ? 1 : 0
   name          = "guardduty-finding-warning-events"
   event_pattern = file("${path.module}/event-pattern-warning.json")
+
+  tags = merge(local.common_tags)
 }
 
 resource "aws_cloudwatch_event_rule" "critical" {
   count         = var.enable_sns ? 1 : 0
   name          = "guardduty-finding-critical-events"
   event_pattern = file("${path.module}/event-pattern-critical.json")
+
+  tags = merge(local.common_tags)
 }
 
 resource "aws_cloudwatch_event_target" "info" {
@@ -65,6 +77,8 @@ resource "aws_kms_key" "this" {
   description         = "Key used to encrypt the GuardDuty findings SNS topics"
   policy              = data.aws_iam_policy_document.this.json
   enable_key_rotation = true
+
+  tags = merge(local.common_tags)
 }
 
 resource "aws_kms_alias" "this" {

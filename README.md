@@ -18,8 +18,6 @@ Repository for Module for AWS Lambda CICD
 This repo is self documenting via Terraform Docs, please see the note at the bottom.
 ### `LICENSE`
 This is the standard Apache 2.0 License as defined [here](https://stratusgrid.atlassian.net/wiki/spaces/TK/pages/2121728017/StratusGrid+Terraform+Module+Requirements).
-### `outputs.tf`
-The StratusGrid standard for Terraform Outputs.
 ### `README.md`
 It's this file! I'm always updated via TF Docs!
 ### `tags.tf`
@@ -66,6 +64,7 @@ This is your gitignore, and contains a slew of default standards.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_enable_sns"></a> [enable\_sns](#input\_enable\_sns) | Enable or disable GuardDuty findings notifications. | `bool` | `true` | no |
+| <a name="input_input_tags"></a> [input\_tags](#input\_input\_tags) | Map of tags to apply to resources | `map(string)` | `{}` | no |
 ## Outputs
 
 No outputs.
