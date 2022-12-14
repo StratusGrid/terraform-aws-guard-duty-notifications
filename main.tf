@@ -1,8 +1,3 @@
-resource "aws_guardduty_detector" "detector" {
-  enable                       = true
-  finding_publishing_frequency = var.guardduty_subsequent_findings_publishing_frequency
-}
-
 # This can easily be done with a for_each, but it is made this way to keep the variable as a simple boolean
 resource "aws_sns_topic" "guardduty_findings_info" {
   count             = var.enable_sns ? 1 : 0
