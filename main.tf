@@ -1,19 +1,19 @@
 # This can easily be done with a for_each, but it is made this way to keep the variable as a simple boolean
 resource "aws_sns_topic" "guardduty_findings_info" {
   count             = var.enable_sns ? 1 : 0
-kms_master_key_id = aws_kms_key.this.key_id
+kms_master_key_id = aws_kms_key.this[0].key_id
   name              = "guardduty-findings-info"
 }
 
 resource "aws_sns_topic" "guardduty_findings_warning" {
   count             = var.enable_sns ? 1 : 0
-  kms_master_key_id = aws_kms_key.this.key_id
+  kms_master_key_id = aws_kms_key.this[0].key_id
   name              = "guardduty-findings-warning"
 }
 
 resource "aws_sns_topic" "guardduty_findings_critical" {
   count             = var.enable_sns ? 1 : 0
-  kms_master_key_id = aws_kms_key.this.key_id
+  kms_master_key_id = aws_kms_key.this[0].key_id
   name              = "guardduty-findings-critical"
 }
 
@@ -61,12 +61,14 @@ locals {
 }
 
 resource "aws_kms_key" "this" {
+  count = var.enable_sns ? 1 : 0
   description         = "Key used to encrypt the GuardDuty findings SNS topics"
   policy              = data.aws_iam_policy_document.this.json
   enable_key_rotation = true
 }
 
 resource "aws_kms_alias" "this" {
-  name          = "alias/${var.project_name}-SNS-topics"
-  target_key_id = aws_kms_key.this.key_id
+    count = var.enable_sns ? 1 : 0
+  name          = "alias/guard-duty-findings-SNS-topics"
+  target_key_id = aws_kms_key.this[0].key_id
 }
