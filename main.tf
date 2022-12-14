@@ -1,19 +1,19 @@
 # This can easily be done with a for_each, but it is made this way to keep the variable as a simple boolean
 resource "aws_sns_topic" "guardduty_findings_info" {
   count             = var.enable_sns ? 1 : 0
-  kms_master_key_id = aws_kms_alias.this
+kms_master_key_id = aws_kms_key.this.key_id
   name              = "guardduty-findings-info"
 }
 
 resource "aws_sns_topic" "guardduty_findings_warning" {
   count             = var.enable_sns ? 1 : 0
-  kms_master_key_id = aws_kms_alias.this
+  kms_master_key_id = aws_kms_key.this.key_id
   name              = "guardduty-findings-warning"
 }
 
 resource "aws_sns_topic" "guardduty_findings_critical" {
   count             = var.enable_sns ? 1 : 0
-  kms_master_key_id = aws_kms_alias.this
+  kms_master_key_id = aws_kms_key.this.key_id
   name              = "guardduty-findings-critical"
 }
 
@@ -37,23 +37,23 @@ resource "aws_cloudwatch_event_rule" "critical" {
 
 resource "aws_cloudwatch_event_target" "info" {
   count     = var.enable_sns ? 1 : 0
-  rule      = aws_cloudwatch_event_rule.info[count.index]
+  rule      = aws_cloudwatch_event_rule.info[0].name
   target_id = "info"
-  arn       = aws_sns_topic.guardduty_findings_info[count.index]
+  arn       = aws_sns_topic.guardduty_findings_info[0].arn
 }
 
 resource "aws_cloudwatch_event_target" "warning" {
   count     = var.enable_sns ? 1 : 0
-  rule      = aws_cloudwatch_event_rule.warning[count.index]
+  rule      = aws_cloudwatch_event_rule.warning[0].name
   target_id = "warning"
-  arn       = aws_sns_topic.guardduty_findings_warning[count.index]
+  arn       = aws_sns_topic.guardduty_findings_warning[0].arn
 }
 
 resource "aws_cloudwatch_event_target" "critical" {
   count     = var.enable_sns ? 1 : 0
-  rule      = aws_cloudwatch_event_rule.critical[count.index]
+  rule      = aws_cloudwatch_event_rule.critical[0].name
   target_id = "critical"
-  arn       = aws_sns_topic.guardduty_findings_critical[count.index]
+  arn       = aws_sns_topic.guardduty_findings_critical[0].arn
 }
 
 locals {
