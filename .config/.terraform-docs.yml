@@ -16,7 +16,7 @@ content: |-
   - All resource names and name tags shall use `_` and not `-`s
   - The old naming standard for common files such as inputs, outputs, providers, etc was to prefix them with a `-`, this is no longer true as it's not POSIX compliant. Our pre-commit hooks will fail with this old standard.
   - StratusGrid generally follows the TerraForm standards outlined [here](https://www.terraform-best-practices.com/naming)
-  
+
   ---
   {{ .Requirements }}
   {{ .Resources }}
