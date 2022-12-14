@@ -5,8 +5,7 @@ GitHub: [StratusGrid/terraform-aws-lambda-pipeline](https://github.com/StratusGr
 ```hcl
 module "aws_guard_duty" {
   source  = "StratusGrid/terraform-aws-guard-duty/aws"
-  version = "1.0.0"
-  project_name = "projectname"
+  # version = "x.x.x" # StratusGrid recommends pinning the module version to the latest available 
 }
 ```
 ## StratusGrid Standards we assume
