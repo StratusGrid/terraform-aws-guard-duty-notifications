@@ -4,8 +4,3 @@ variable "enable_sns" {
   default     = true
 }
 
-variable "project_name" {
-  type        = string
-  description = "Set the name of the project"
-}
-
