@@ -35,7 +35,7 @@ resource "aws_cloudwatch_event_rule" "warning" {
   count         = var.enable_sns ? 1 : 0
   name          = "guardduty-finding-warning-events"
   event_pattern = file("${path.module}/event-pattern-warning.json")
-  
+
   tags = merge(local.common_tags)
 }
 
