@@ -1,6 +1,11 @@
 <!-- BEGIN_TF_DOCS -->
-# terraform-aws-lambda-pipeline
-GitHub: [StratusGrid/terraform-aws-lambda-pipeline](https://github.com/StratusGrid/terraform-aws-lambda-pipeline)
+# terraform-aws-guard-duty-notifications
+GitHub: [StratusGrid/terraform-aws-guard-duty-notifications](https://github.com/StratusGrid/terraform-aws-guard-duty-notifications/)
+
+This module creates SNS topics for three tiers of GuardDuty findings, EventBridge rules and triggers to add findings to the SNS topics, and a KMS key and alias used to encrypt data sent to the SNS topics.
+
+Currently, subscriptions to the topics are not managed in this module.
+
 ## Example
 ```hcl
 module "aws_guard_duty" {
