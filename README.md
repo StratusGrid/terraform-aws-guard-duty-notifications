@@ -57,7 +57,6 @@ This is your gitignore, and contains a slew of default standards.
 | [aws_cloudwatch_event_target.critical](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
 | [aws_cloudwatch_event_target.info](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
 | [aws_cloudwatch_event_target.warning](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
-| [aws_guardduty_detector.detector](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector) | resource |
 | [aws_kms_alias.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
 | [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_sns_topic.guardduty_findings_critical](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic) | resource |
@@ -67,9 +66,7 @@ This is your gitignore, and contains a slew of default standards.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_enable_sns"></a> [enable\_sns](#input\_enable\_sns) | Enable or disable SNS | `bool` | `true` | no |
-| <a name="input_guardduty_subsequent_findings_publishing_frequency"></a> [guardduty\_subsequent\_findings\_publishing\_frequency](#input\_guardduty\_subsequent\_findings\_publishing\_frequency) | The frequency of notifications sent about the subsequent finding occurrences | `string` | `"SIX_HOURS"` | no |
-| <a name="input_project_name"></a> [project\_name](#input\_project\_name) | Set the name of the project | `string` | n/a | yes |
+| <a name="input_enable_sns"></a> [enable\_sns](#input\_enable\_sns) | Enable or disable GuardDuty findings notifications. | `bool` | `true` | no |
 ## Outputs
 
 No outputs.
