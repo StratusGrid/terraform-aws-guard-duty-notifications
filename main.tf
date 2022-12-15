@@ -73,14 +73,10 @@ resource "aws_cloudwatch_event_target" "critical" {
   arn       = aws_sns_topic.guardduty_findings_critical[0].arn
 }
 
-locals {
-  kms_allowed_accounts = compact([data.aws_caller_identity.current.account_id])
-}
-
 resource "aws_kms_key" "this" {
   count               = var.enable_sns ? 1 : 0
   description         = "Key used to encrypt the GuardDuty findings SNS topics"
-  policy              = data.aws_iam_policy_document.this.json
+  policy              = data.aws_iam_policy_document.kms_key_policy.json
   enable_key_rotation = true
 
   tags = merge(local.common_tags)
@@ -132,4 +128,43 @@ data "aws_iam_policy_document" "sns_access_policy" {
     resources = ["arn:aws:sns:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:guardduty-findings-*"]
   }
 
+}
+
+data "aws_iam_policy_document" "kms_key_policy" {
+  statement {
+    sid    = "Grant KMS key rights to the root of this AWS account: ${data.aws_caller_identity.current.account_id}."
+    effect = "Allow"
+    principals {
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+      type        = "AWS"
+    }
+    actions   = ["kms:*"]
+    resources = ["*"]
+  }
+  statement {
+    sid    = "Grant necessary permissions for use by the Events service in publishing SNS messages."
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
+    }
+    actions = [
+      "kms:GenerateDataKey*",
+      "kms:Decrypt"
+    ]
+    resources = ["*"]
+  }
+  statement {
+    sid    = "Grant necessary permissions for use by the SNS service in publishing SNS messages."
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["sns.amazonaws.com"]
+    }
+    actions = [
+      "kms:GenerateDataKey*",
+      "kms:Decrypt"
+    ]
+    resources = ["*"]
+  }
 }
